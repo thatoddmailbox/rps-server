@@ -22,7 +22,7 @@ net.createServer(function(sock) {
 
     // Add a 'data' event handler to this instance of socket
     sock.on('data', function(data) {
-		var dataStr = trim(data + "");
+		var dataStr = trim(data + "").toLowerCase();
 		if (dataStr.length == 0) {
 			return;
 		}
