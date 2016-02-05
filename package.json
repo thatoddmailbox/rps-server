@@ -1,0 +1,7 @@
+{
+  "name": "rps-server",
+  "version": "0.0.1",
+  "dependencies": {
+    "randomstring": "^1.1.3"
+  }
+}
