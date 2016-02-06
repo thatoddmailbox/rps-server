@@ -75,7 +75,7 @@ net.createServer(function(sock) {
 				games[gameId].p2Choice = dataStr[0];
 			}
 
-			sock.write("conf\n");
+			sock.write("ok\n");
 
 			// check if both have been set
 			if (games[gameId].p1Choice !== "" && games[gameId].p2Choice !== "") {
