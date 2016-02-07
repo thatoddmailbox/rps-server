@@ -38,6 +38,12 @@ net.createServer(function(sock) {
 			sock.write(gameId + "\n");
 		}  else if (dataStr[0].toLowerCase() == "m") {
 			var msg = dataStr.substr(dataStr.indexOf() + 1).replace("\r", "").replace("\n", "");
+			if (clients[getEndpoint(sock)].gameId === undefined) {
+				sock.write("error nogame\n");
+				return;
+			}
+
+			var gameId = clients[getEndpoint(sock)].gameId;
 			sock.write("ok\n");
 			
 			if (games[gameId].player1 === getEndpoint(sock)) {
