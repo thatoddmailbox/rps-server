@@ -22,11 +22,11 @@ net.createServer(function(sock) {
 
     // Add a 'data' event handler to this instance of socket
     sock.on('data', function(data) {
-		var dataStr = trim(data + "").toLowerCase();
+		var dataStr = trim(data + "");
 		if (dataStr.length == 0) {
 			return;
 		}
-		if (dataStr == "newgame") {
+		if (dataStr.toLowerCase() == "newgame") {
 			var gameId = randomstring.generate(7);
 			games[gameId] = {
 				player1: getEndpoint(sock),
@@ -36,7 +36,7 @@ net.createServer(function(sock) {
 			};
 			clients[getEndpoint(sock)].gameId = gameId;
 			sock.write(gameId + "\n");
-		} else if (dataStr[0] == "j") {
+		} else if (dataStr[0].toLowerCase() == "j") {
 			var parts = dataStr.split(" ");
 			if (parts.length != 2) {
 				sock.write("error syntax\n");
@@ -60,7 +60,7 @@ net.createServer(function(sock) {
 			// and start!
 			sendMessage(games[gameId].player1, "start\n");
 			sendMessage(games[gameId].player2, "start\n");
-		} else if (dataStr[0] == "r" || dataStr[0] == "p" || dataStr[0] == "s") {
+		} else if (dataStr[0].toLowerCase() == "r" || dataStr[0].toLowerCase() == "p" || dataStr[0].toLowerCase() == "s") {
 			var choice = dataStr[0];
 			if (clients[getEndpoint(sock)].gameId === undefined) {
 				sock.write("error nogame\n");
