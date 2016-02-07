@@ -37,7 +37,7 @@ net.createServer(function(sock) {
 			clients[getEndpoint(sock)].gameId = gameId;
 			sock.write(gameId + "\n");
 		}  else if (dataStr[0].toLowerCase() == "m") {
-			var msg = dataStr.substr(dataStr.indexOf() + 1).replace("\r", "").replace("\n", "");
+			var msg = dataStr.substr(dataStr.indexOf(" ") + 1).replace("\r", "").replace("\n", "");
 			if (clients[getEndpoint(sock)].gameId === undefined) {
 				sock.write("error nogame\n");
 				return;
@@ -47,9 +47,9 @@ net.createServer(function(sock) {
 			sock.write("ok\n");
 			
 			if (games[gameId].player1 === getEndpoint(sock)) {
-				sendMessage(games[gameId].player2, "MSG: " + msg);
+				sendMessage(games[gameId].player2, "MSG: " + msg + "\n");
 			} else { // TODO: more than 2 players?
-				sendMessage(games[gameId].player1, "MSG: " + msg);
+				sendMessage(games[gameId].player1, "MSG: " + msg + "\n");
 			}
 		} else if (dataStr[0].toLowerCase() == "j") {
 			var parts = dataStr.split(" ");
